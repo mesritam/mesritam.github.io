@@ -6,123 +6,63 @@
 <style>
 body {
     margin: 0;
+    overflow: hidden;
     font-family: Arial;
-    background-color: #0f172a;
     color: white;
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 40px;
-    background: #020617;
+#text {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-/* Hero Section */
-.hero {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 50px;
-}
-
-.hero-text {
-    max-width: 400px;
-}
-
-.hero h1 {
+h1 {
     font-size: 40px;
 }
-
-.btn {
-    padding: 10px 20px;
-    background: orange;
-    border: none;
-    color: black;
-    cursor: pointer;
-}
-
-/* Image */
-.hero img {
-    width: 200px;
-    border-radius: 10px;
-}
-
-/* Sections */
-.section {
-    padding: 40px;
-    text-align: center;
-}
-
-.card {
-    background: #1e293b;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 10px;
-    display: inline-block;
-}
 </style>
-
 </head>
 
 <body>
 
-<!-- Navbar -->
-<div class="navbar">
-    <h2>Sritam</h2>
-    <div>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Projects</a>
-        <a href="#">Contact</a>
-    </div>
+<div id="text">
+<h1>Sritam Nayek 🚀</h1>
+<p>Future Cloud Engineer</p>
 </div>
 
-<!-- Hero -->
-<div class="hero">
-    <div class="hero-text">
-        <h1>Hello 👋</h1>
-        <h2>I am Sritam Nayek</h2>
-        <p>How can i help you</p>
-        <button class="btn">Hire Me</button>
-    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <img src="pic.jpg" alt="profile">
-</div>
+<script>
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 
-<!-- About -->
-<div class="section">
-    <h2>About Me</h2>
-    <p>Welcome to my profile
-        i am a Software Engineer.</p>
-</div>
+let renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-<!-- Skills -->
-<div class="section">
-    <h2>My Skills</h2>
-    <div class="card">PYTHON</div>
-    <div class="card">HTML</div>
-    <div class="card">GitHub</div>
-</div>
+// Create geometry
+let geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+let material = new THREE.MeshBasicMaterial({ color: 0x00ffcc, wireframe: true });
 
-<!-- Projects -->
-<div class="section">
-    <h2>Projects</h2>
-    <div class="card">WELCOME TO MY WEBSITE</div>
-</div>
+let torus = new THREE.Mesh(geometry, material);
+scene.add(torus);
 
-<!-- Contact -->
-<div class="section">
-    <h2>Contact</h2>
-    <p>Email: sritamnayek29@gmail.com</p>
-</div>
+camera.position.z = 30;
+
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+
+    torus.rotation.x += 0.01;
+    torus.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+}
+
+animate();
+</script>
 
 </body>
 </html>
