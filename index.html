@@ -5,26 +5,39 @@
 
 <style>
 body {
-    text-align: center;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-    color: white;
+    margin: 0;
     font-family: Arial;
-}
-
-h1 {
-    font-size: 40px;
-}
-
-h2 {
-    color: #ffeb3b;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    text-align: center;
 }
 
 .card {
     background: rgba(255,255,255,0.1);
-    padding: 20px;
+    padding: 30px;
     margin: 20px auto;
     width: 300px;
-    border-radius: 10px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transition: transform 0.5s;
+}
+
+.card:hover {
+    transform: scale(1.05) rotateY(10deg);
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background: #ffeb3b;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: orange;
 }
 </style>
 
@@ -32,12 +45,23 @@ h2 {
 
 <body>
 
-<h1>👋 Welcome to My Website</h1>
-<h2>I am learning Cloud Computing</h2>
+<h1>👋 Welcome to My Portfolio</h1>
+<h2>Sritam Nayek</h2>
+<p>Future Cloud Engineer ☁️🚀</p>
 
 <div class="card">
-<p><b>Name:</b> Sritam Nayek</p>
-<p><b>Goal:</b> Future Cloud Engineer 🚀</p>
+    <h3>💻 Skills</h3>
+    <p>AWS | HTML | GitHub</p>
+</div>
+
+<div class="card">
+    <h3>📂 Projects</h3>
+    <p>My First Cloud Website</p>
+</div>
+
+<div class="card">
+    <h3>📞 Contact</h3>
+    <button onclick="alert('Email: sritamnayek29@gmail.com')">Contact Me</button>
 </div>
 
 </body>
