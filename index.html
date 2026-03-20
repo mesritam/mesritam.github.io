@@ -1,68 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SRITAM NAYEK</title>
+<title>Sritam Nayek</title>
 
 <style>
 body {
     margin: 0;
-    overflow: hidden;
     font-family: Arial;
     color: white;
+    background: linear-gradient(120deg, #1f1c2c, #928dab);
 }
 
-#text {
-    position: absolute;
-    top: 40%;
+/* Navbar */
+nav {
+    position: fixed;
     width: 100%;
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
     text-align: center;
-    z-index: 10;
 }
 
-h1 {
-    font-size: 40px;
+/* Sections */
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero */
+.hero h1 {
+    font-size: 50px;
+}
+
+.hero p {
+    font-size: 20px;
+}
+
+/* Cards */
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+/* Button */
+button {
+    padding: 10px 20px;
+    border: none;
+    background: #ffeb3b;
+    border-radius: 5px;
+    cursor: pointer;
 }
 </style>
+
 </head>
 
 <body>
 
-<div id="text">
-<h1>Sritam Nayek 🚀</h1>
-<p>Future Cloud Engineer</p>
-</div>
+<nav>
+Sritam Nayek Portfolio
+</nav>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<section class="hero">
+<h1>👋 Hi, I'm Sritam</h1>
+<p>Future Cloud Engineer ☁️</p>
+</section>
 
-<script>
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+<section>
+<h2>💻 Skills</h2>
+<div class="card">AWS EC2</div>
+<div class="card">HTML, CSS</div>
+<div class="card">GitHub</div>
+</section>
 
-let renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+<section>
+<h2>📂 Projects</h2>
+<div class="card">Cloud Website (AWS)</div>
+<div class="card">GitHub Portfolio</div>
+</section>
 
-// Create geometry
-let geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-let material = new THREE.MeshBasicMaterial({ color: 0x00ffcc, wireframe: true });
-
-let torus = new THREE.Mesh(geometry, material);
-scene.add(torus);
-
-camera.position.z = 30;
-
-// Animation loop
-function animate() {
-    requestAnimationFrame(animate);
-
-    torus.rotation.x += 0.01;
-    torus.rotation.y += 0.01;
-
-    renderer.render(scene, camera);
-}
-
-animate();
-</script>
+<section>
+<h2>📞 Contact</h2>
+<button onclick="alert('Email: sritamnayek29@gmail.com')">Contact Me</button>
+</section>
 
 </body>
 </html>
