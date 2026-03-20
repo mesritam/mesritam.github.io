@@ -130,15 +130,7 @@
     display: inline-block;
     margin-bottom: 24px;
   }
-  .avatar-wrap::before {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: conic-gradient(var(--primary), var(--accent), var(--gold), var(--primary));
-    animation: spin 4s linear infinite;
-    z-index: -1;
-  }
+
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .avatar {
@@ -146,8 +138,10 @@
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid var(--dark);
+    border: 4px solid #000;
     display: block;
+    position: relative;
+    z-index: 2;
   }
 
   .hero-name {
@@ -374,7 +368,7 @@
   <div class="nav-links">
     <a href="#hero">Home</a>
     <a href="#skills">Skills</a>
-    <a href="mailto:sritam@email.com">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#dcafaeb5a8bdb19cb9b1bdb5b0f2bfb3b1">Contact</a>
   </div>
 </nav>
 
@@ -469,7 +463,7 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
 </audio>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Animate skill bars when section is visible
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -501,12 +495,3 @@
       btn.classList.remove('playing');
       viz.classList.remove('active');
       playing = false;
-    }
-  }
-
-  function scrollToSkills() {
-    document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
-  }
-</script>
-</body>
-</html>
