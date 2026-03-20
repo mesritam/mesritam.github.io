@@ -1,91 +1,512 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sritam Nayek | Cloud Engineer</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: linear-gradient(120deg, #1f1c2c, #928dab);
+  :root {
+    --primary: #00f5ff;
+    --accent: #ff2d78;
+    --gold: #ffd700;
+    --dark: #050a18;
+    --card-bg: rgba(0, 245, 255, 0.04);
+    --glow: 0 0 20px rgba(0,245,255,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--dark);
     color: white;
-}
+    overflow-x: hidden;
+  }
 
-/* Navbar */
-nav {
-    text-align: center;
-    padding: 15px;
-    background: rgba(0,0,0,0.5);
-}
+  /* Animated starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(0,245,255,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255,45,120,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(100,0,255,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-/* Section */
-section {
-    height: 100vh;
+  /* Grid overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background: rgba(5,10,24,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,245,255,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--primary);
+    letter-spacing: 3px;
+    text-shadow: var(--glow);
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    margin-left: 28px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--primary); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
+    padding: 100px 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
 
-/* 3D Card */
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
+  .hero-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0,245,255,0.2);
+    border-radius: 24px;
+    padding: 50px 60px;
     text-align: center;
-}
+    backdrop-filter: blur(20px);
+    box-shadow:
+      0 0 60px rgba(0,245,255,0.08),
+      inset 0 0 60px rgba(0,245,255,0.03);
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s;
+    max-width: 480px;
+    width: 100%;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .hero-card:hover {
+    transform: rotateY(6deg) rotateX(4deg) scale(1.03);
+    box-shadow:
+      0 0 100px rgba(0,245,255,0.15),
+      inset 0 0 60px rgba(0,245,255,0.05);
+  }
 
-.card:hover {
-    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
-}
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(40px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
 
-/* Image */
-img {
-    width: 120px;
+  .avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+  .avatar-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
     border-radius: 50%;
-    margin-bottom: 10px;
-}
+    background: conic-gradient(var(--primary), var(--accent), var(--gold), var(--primary));
+    animation: spin 4s linear infinite;
+    z-index: -1;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Button */
-button {
-    padding: 10px 20px;
+  .avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--dark);
+    display: block;
+  }
+
+  .hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 40%, var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--primary);
+    opacity: 0.8;
+    margin-bottom: 24px;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .badge {
+    background: rgba(0,245,255,0.08);
+    border: 1px solid rgba(0,245,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--primary);
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 12px 28px;
     border: none;
-    background: #ffeb3b;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     cursor: pointer;
-}
+    transition: all 0.3s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), #0080ff);
+    color: var(--dark);
+    box-shadow: 0 4px 20px rgba(0,245,255,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,245,255,0.5);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .btn-secondary:hover {
+    background: rgba(0,245,255,0.1);
+    transform: translateY(-2px);
+  }
+  .btn-secondary.playing {
+    background: rgba(255,45,120,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── SKILLS SECTION ── */
+  .skills-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    letter-spacing: 6px;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    margin: 12px auto 0;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0,245,255,0.12);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+    cursor: default;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .skill-card:nth-child(1) { animation-delay: 0.1s; }
+  .skill-card:nth-child(2) { animation-delay: 0.2s; }
+  .skill-card:nth-child(3) { animation-delay: 0.3s; }
+  .skill-card:nth-child(4) { animation-delay: 0.4s; }
+  .skill-card:nth-child(5) { animation-delay: 0.5s; }
+  .skill-card:nth-child(6) { animation-delay: 0.6s; }
+
+  .skill-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0,245,255,0.4);
+    box-shadow: 0 20px 50px rgba(0,245,255,0.12);
+  }
+
+  .skill-icon {
+    font-size: 2.4rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .skill-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .skill-bar-wrap {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    height: 4px;
+    overflow: hidden;
+  }
+  .skill-bar {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary), #0080ff);
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.23,1,0.32,1);
+  }
+  .skill-card:hover .skill-bar {
+    box-shadow: 0 0 10px var(--primary);
+  }
+
+  .skill-level {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid rgba(0,245,255,0.08);
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  /* Audio visualizer dots */
+  .visualizer {
+    display: none;
+    gap: 3px;
+    align-items: flex-end;
+    height: 20px;
+    margin-top: 14px;
+    justify-content: center;
+  }
+  .visualizer.active { display: flex; }
+  .bar-dot {
+    width: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+    animation: bounce 0.6s ease infinite alternate;
+  }
+  .bar-dot:nth-child(1) { height: 8px;  animation-delay: 0s; }
+  .bar-dot:nth-child(2) { height: 14px; animation-delay: 0.1s; }
+  .bar-dot:nth-child(3) { height: 20px; animation-delay: 0.2s; }
+  .bar-dot:nth-child(4) { height: 14px; animation-delay: 0.3s; }
+  .bar-dot:nth-child(5) { height: 8px;  animation-delay: 0.4s; }
+  @keyframes bounce {
+    from { transform: scaleY(0.4); opacity: 0.5; }
+    to   { transform: scaleY(1);   opacity: 1; }
+  }
 </style>
-
 </head>
-
 <body>
 
-<nav>Sritam Portfolio</nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SN://</div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#skills">Skills</a>
+    <a href="mailto:sritam@email.com">Contact</a>
+  </div>
+</nav>
 
-<section>
-<div class="card">
-<img src="pic.jpg" alt="profile">
-<h1>Sritam Nayek</h1>
-<p>Future Cloud Engineer ☁️</p>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-card">
+    <div class="avatar-wrap">
+      <img src="pic.jpg" alt="Sritam Nayek" class="avatar">
+    </div>
+    <h1 class="hero-name">Sritam Nayek</h1>
+    <p class="hero-title">Future Cloud Engineer ☁️</p>
 
-<button onclick="playAudio()">Play Intro</button>
+    <div class="hero-badges">
+      <span class="badge">AWS</span>
+      <span class="badge">DevOps</span>
+      <span class="badge">Linux</span>
+      <span class="badge">Python</span>
+    </div>
 
-<audio id="audio">
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-</audio>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="scrollToSkills()">View Skills</button>
+      <button class="btn btn-secondary" id="audioBtn" onclick="toggleAudio()">▶ Play Intro</button>
+    </div>
 
-</div>
+    <div class="visualizer" id="viz">
+      <div class="bar-dot"></div>
+      <div class="bar-dot"></div>
+      <div class="bar-dot"></div>
+      <div class="bar-dot"></div>
+      <div class="bar-dot"></div>
+    </div>
+  </div>
 </section>
 
-<script>
-function playAudio() {
-    document.getElementById("audio").play();
-}
-</script>
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
 
+    <div class="skill-card">
+      <span class="skill-icon">☁️</span>
+      <div class="skill-name">AWS Cloud</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="80%"></div></div>
+      <div class="skill-level">EC2 · S3 · Lambda · IAM</div>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">🐧</span>
+      <div class="skill-name">Linux</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="85%"></div></div>
+      <div class="skill-level">Ubuntu · RHEL · Shell Scripting</div>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">🐳</span>
+      <div class="skill-name">Docker</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="75%"></div></div>
+      <div class="skill-level">Containers · Compose · Registry</div>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">🐍</span>
+      <div class="skill-name">Python</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="78%"></div></div>
+      <div class="skill-level">Automation · Boto3 · Scripts</div>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">⚙️</span>
+      <div class="skill-name">DevOps</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="70%"></div></div>
+      <div class="skill-level">CI/CD · Jenkins · GitHub Actions</div>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">🔒</span>
+      <div class="skill-name">Networking</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="72%"></div></div>
+      <div class="skill-level">VPC · DNS · Firewalls · VPN</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2025 Sritam Nayek &nbsp;·&nbsp; Built with ☁️ &amp; Code
+</footer>
+
+<!-- AUDIO (changed to a calm lo-fi track) -->
+<audio id="audio" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Animate skill bars when section is visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.skills-section').forEach(s => observer.observe(s));
+
+  // Audio toggle
+  let playing = false;
+  function toggleAudio() {
+    const audio = document.getElementById('audio');
+    const btn   = document.getElementById('audioBtn');
+    const viz   = document.getElementById('viz');
+    if (!playing) {
+      audio.play();
+      btn.textContent = '⏸ Pause';
+      btn.classList.add('playing');
+      viz.classList.add('active');
+      playing = true;
+    } else {
+      audio.pause();
+      btn.textContent = '▶ Play Intro';
+      btn.classList.remove('playing');
+      viz.classList.remove('active');
+      playing = false;
+    }
+  }
+
+  function scrollToSkills() {
+    document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
