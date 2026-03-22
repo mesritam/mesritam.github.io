@@ -503,7 +503,7 @@ async function sendChat(){
   try{
     var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyC1mwmdayNqjOK-VeMAFuNq4lB6BLRh2a0',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system_instruction:{parts:[{text:"You are a helpful AI assistant on Sritam Nayek's portfolio website. Be friendly, concise and helpful."}]},contents:chatHistory})
+      body:JSON.stringify({contents:chatHistory})
     });
     var data=await res.json();removeTyping();
     var reply=data.candidates[0].content.parts[0].text;
