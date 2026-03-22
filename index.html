@@ -393,7 +393,7 @@ footer span{color:#6496ff}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* SNOW */
 var sc=document.getElementById('snow-canvas');
 var sctx=sc.getContext('2d');
@@ -501,7 +501,7 @@ async function sendChat(){
   var input=document.getElementById('chatInput'),text=input.value.trim();if(!text)return;
   input.value='';appendMsg(text,'user');chatHistory.push({role:'user',parts:[{text:text}]});showTyping();
   try{
-    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyC1mwmdayNqjOK-VeMAFuNq4lB6BLRh2a0',{
+    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyC1mwmdayNqjOK-VeMAFuNq4lB6BLRh2a0',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({contents:chatHistory})
     });
