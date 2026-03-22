@@ -501,7 +501,7 @@ async function sendChat(){
   var input=document.getElementById('chatInput'),text=input.value.trim();if(!text)return;
   input.value='';appendMsg(text,'user');chatHistory.push({role:'user',parts:[{text:text}]});showTyping();
   try{
-    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyC1mwmdayNqjOK-VeMAFuNq4lB6BLRh2a0',{
+    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyDR2MW3r3MIX3zNh_MFSpPm4gT2wkWX4IQ',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({contents:chatHistory})
     });
