@@ -1,26 +1,39 @@
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'API key not configured' });
-  }
+   const express = require("express");
+const fetch = require("node-fetch");
+
+const app = express();
+app.use(express.json());
+
+const API_KEY = "AIzaSyC_3n5y19iHqrdPkMEHVZfy7TQA5QACYnE";
+
+app.post("/chat", async (req, res) => {
+  const userMessage = req.body.message;
 
   try {
-    const { contents, system_instruction } = req.body;
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      "https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium",
       {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents, system_instruction }),
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ inputs: userMessage })
       }
     );
+
     const data = await response.json();
-    res.status(200).json(data);
+
+    res.json({
+      reply: data.generated_text || "No reply"
+    });
+
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' });
+    res.json({ reply: "Error occurred" });
   }
-}
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
