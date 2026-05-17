@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 const app = express();
 app.use(express.json());
 
-const API_KEY = "AIzaSyC_3n5y19iHqrdPkMEHVZfy7TQA5QACYnE";
+const API_KEY = "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";
 
 app.post("/chat", async (req, res) => {
   const userMessage = req.body.message;
